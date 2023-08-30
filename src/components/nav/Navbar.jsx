@@ -2,9 +2,11 @@ import { Flex, Icon, Text, Button } from '@chakra-ui/react'
 import {VscLink} from 'react-icons/vsc'
 import {AiOutlineEye} from 'react-icons/ai'
 import NavProfile from './NavProfile'
+import { useState } from 'react'
 
 
 export const Navbar = () => {
+  const [selected, setSelected] = useState('second')
   return (
     <Flex
     bg='white'

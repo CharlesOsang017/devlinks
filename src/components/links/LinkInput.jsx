@@ -1,7 +1,7 @@
 import {
   Flex,
   Menu,
-  Image,
+  Icon,
   MenuItem,
   MenuList,
   MenuButton,
@@ -10,8 +10,32 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { IoLogoLinkedin } from "react-icons/io";
+import { TbBrandGithub } from "react-icons/tb";
+import { useState } from "react";
+import PlatForms from "./MenuList";
+import LinkField from "./LinkField";
 
 const LinkInput = () => {
+  const [selectedPlatForm, setselectedPlatForm] = useState(
+    "Choose your platform"
+  );
+  const dropMenu = [
+    {
+      icon: AiOutlineYoutube,
+      title: "Youtube",
+    },
+    {
+      icon: TbBrandGithub,
+      title: "Github",
+    },
+    {
+      icon: IoLogoLinkedin,
+      title: "LinkedIn",
+    },
+  ];
+  
   return (
     <Flex bgColor='white' direction='column'>
       <Text align='start' mt='10px' ml={{ base: "20px", sm: "0px" }}>
@@ -28,43 +52,35 @@ const LinkInput = () => {
           border='1px solid #D3D3D3'
           height='40px'
         >
-          Your Cats
+          {selectedPlatForm}
         </MenuButton>
         <MenuList>
-          <MenuItem minH='48px'>
-            <Image
-              boxSize='2rem'
-              borderRadius='full'
-              src='https://placekitten.com/100/100'
-              alt='Fluffybuns the destroyer'
-              mr='12px'
-            />
-            <span>Fluffybuns the Destroyer</span>
-          </MenuItem>
-          <MenuItem minH='40px'>
-            <Image
-              boxSize='2rem'
-              borderRadius='full'
-              src='https://placekitten.com/120/120'
-              alt='Simon the pensive'
-              mr='12px'
-            />
-            <span>Simon the pensive</span>
-          </MenuItem>
+          {/* // menuList component */}
+          {dropMenu.map((item) => {
+            
+            return (
+              <>
+                <MenuItem
+                  minH='48px'
+                  key={item.title}
+                  onClick={() => setselectedPlatForm(item.title)}
+                >
+                  <Icon
+                    boxSize='2rem'
+                    borderRadius='full'
+                    as={item.icon}
+                    alt='platform icon'
+                    mr='12px'
+                    background='cover'
+                  />
+                  <span>{item.title}</span>
+                </MenuItem>
+              </>
+            );
+          })}
         </MenuList>
       </Menu>
-      <Text align='start' mt='10px' ml={{ base: "20px", sm: "0px" }}>
-        Link
-      </Text>
-      <Input
-        width={{ base: "90%", sm: "100%" }}
-        border='1px solid #D3D3D3'
-        outline='none'
-        ml={{ base: "20px", sm: "0px" }}
-      />
-      <Button align='center' justify='center' mt='30px' ml='300px' width='20%'>
-        Save
-      </Button>
+      <LinkField />
     </Flex>
   );
 };
